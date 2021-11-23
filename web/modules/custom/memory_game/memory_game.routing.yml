@@ -1,0 +1,12 @@
+memory_game.content:
+  path: '/code-challenge/card-grid'
+  defaults:
+    _controller: '\Drupal\memory_game\Controller\MemoryGameController::index'
+    _title: 'Memory Game'
+    methods:  [GET]
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      rows:
+      columns:
