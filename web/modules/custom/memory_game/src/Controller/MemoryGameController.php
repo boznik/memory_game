@@ -21,34 +21,39 @@ class MemoryGameController extends ControllerBase {
    */
   public function getData($rows, $columns) {
 
-    $alpha = [
-      'A',
-      'B',
-      'C',
-      'D',
-      'E',
-      'F',
-      'G',
-      'H',
-      'I',
-      'J',
-      'K',
-      'L',
-      'M',
-      'N',
-      'O',
-      'P',
-      'Q',
-      'R',
-      'S',
-      'T',
-      'U',
-      'V',
-      'W',
-      'X',
-      'Y',
-      'Z'
-    ];
+//    $alpha = [
+//      'A',
+//      'B',
+//      'C',
+//      'D',
+//      'E',
+//      'F',
+//      'G',
+//      'H',
+//      'I',
+//      'J',
+//      'K',
+//      'L',
+//      'M',
+//      'N',
+//      'O',
+//      'P',
+//      'Q',
+//      'R',
+//      'S',
+//      'T',
+//      'U',
+//      'V',
+//      'W',
+//      'X',
+//      'Y',
+//      'Z'
+//    ];
+//    $alpha = [];
+//    foreach (range('A', 'Z') as $letter) {
+//      $alpha[] = $letter;
+//    }
+    $alpha = range('A','Z', 1);
 
     if (isset($rows) && isset($columns)) {
       if ($rows > 6 || $columns > 6) {
@@ -67,14 +72,10 @@ class MemoryGameController extends ControllerBase {
       foreach($cards as $card) {
         $uniqueCards[] = $card;
       }
-      $card = [];
-      $x = 0;
-      while ($x < $rows) {
-        shuffle($uniqueCards);
-        $card[] = $uniqueCards;
-        $x++;
-      }
-      $result = ['cards' => $card];
+      $merge = array_merge($uniqueCards, $uniqueCards);
+      shuffle($merge);
+      $cardSubset = array_chunk($merge, $columns);
+      $result = ['cards' => $cardSubset];
       $metadata = [
         'success' => 'true',
         'cardCount' => $cardCount,
